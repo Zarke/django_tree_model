@@ -33,3 +33,16 @@ class Ground(models.Model):
 
     def __str__(self):
         return self
+
+
+class Root(models.Model):
+    ROOT_TYPE = (
+        ('TAP', 'taproot'),
+        ('FIB', 'fibrous'),
+        ('ADV', 'adventitious')
+    )
+    groundLocation = models.ForeignKey(Ground, on_delete=models.CASCADE)
+    rootType = models.CharField(max_length=3, choices=ROOT_TYPE)
+
+    def __str__(self):
+        return self.get_rootType_display()
