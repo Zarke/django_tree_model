@@ -74,3 +74,17 @@ class Branch(models.Model):
             return f'This is a healty {self.width}cm long branch'
         else:
             return f'This is a damaged {self.width} branch'
+
+
+class Leaf(models.Model):
+    LEAF_TYPES = (
+        ('ALT', 'Alternate'),
+        ('OPO', 'Opposite'),
+        ('WHO', 'Whorled'),
+        ('BAC', 'Basal')
+    )
+
+    leaf_type = models.CharField(max_length=3, choices=LEAF_TYPES)
+    surface = models.IntegerField
+    attached_to_branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+
