@@ -55,3 +55,9 @@ class Root(models.Model):
 
     def __str__(self):
         return self.get_rootType_display()
+
+
+class Trunk(models.Model):
+    diameter = models.IntegerField
+    age = models.IntegerField
+    attachedRoot = models.ForeignKey(Root, on_delete=models.CASCADE)
