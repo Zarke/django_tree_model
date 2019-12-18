@@ -61,3 +61,16 @@ class Trunk(models.Model):
     diameter = models.IntegerField
     age = models.IntegerField
     attachedRoot = models.ForeignKey(Root, on_delete=models.CASCADE)
+
+
+class Branch(models.Model):
+    length = models.IntegerField
+    width = models.IntegerField
+    is_healty = models.BooleanField
+    attached_trunk = models.ForeignKey(Trunk, on_delete=models.CASCADE)
+
+    def __str__(self):
+        if self.is_healty:
+            return f'This is a healty {self.width}cm long branch'
+        else:
+            return f'This is a damaged {self.width} branch'
