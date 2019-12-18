@@ -2,23 +2,6 @@ from django.db import models
 
 
 # Create your models here.
-
-class Tree(models.Model):
-    CLIMATE = (
-        ('TRO', 'Tropical'),
-        ('DES', 'Desert'),
-        ('ARC', 'Arctic'),
-        ('RFR', 'Rainforest'),
-        ('MOD', 'Moderate')
-    )
-
-    name = models.CharField(max_length=100)
-    habitat = models.CharField(max_length=3, choices=CLIMATE, default='MOD')
-
-    def __str__(self):
-        return self.name
-
-
 class Ground(models.Model):
     GROUND_TYPES = (
         ('SAND', 'Sandy soil'),
@@ -30,7 +13,7 @@ class Ground(models.Model):
     )
     longitude = models.CharField(max_length=200)
     latitude = models.CharField(max_length=200)
-    viable = models.BooleanField(default=models)
+    viable = models.BooleanField(default=True)
     groundType = models.CharField(max_length=5, choices=GROUND_TYPES)
 
     # an example function that if functional would return true if location is on land and thus can hav ea tree grow on it
@@ -88,3 +71,19 @@ class Leaf(models.Model):
     surface = models.IntegerField
     attached_to_branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
 
+
+class Tree(models.Model):
+    CLIMATE = (
+        ('TRO', 'Tropical'),
+        ('DES', 'Desert'),
+        ('ARC', 'Arctic'),
+        ('RFR', 'Rainforest'),
+        ('MOD', 'Moderate')
+    )
+
+    name = models.CharField(max_length=100)
+    habitat = models.CharField(max_length=3, choices=CLIMATE, default='MOD')
+    connected_trunk = models.ForeignKey(Trunk, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
