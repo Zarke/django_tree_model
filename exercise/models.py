@@ -14,7 +14,7 @@ class Ground(models.Model):
     longitude = models.IntegerField(default=0, blank=False)
     latitude = models.IntegerField(default=0, blank=False)
     viable = models.BooleanField(default=True)
-    groundType = models.CharField(max_length=5, choices=GROUND_TYPES)
+    groundType = models.CharField(max_length=5, choices=GROUND_TYPES, default=GROUND_TYPES[0][0])
 
     # an example function that if functional would return true if location is on land and thus can hav ea tree grow on it
     def is_viable(self):
@@ -22,6 +22,9 @@ class Ground(models.Model):
             return True
         else:
             return False
+
+    class Meta:
+        verbose_name_plural = 'Soil types'
 
     def __str__(self):
         return self.get_rootType_display()
